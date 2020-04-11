@@ -9,6 +9,11 @@ public class FillAction extends LineJumperAction {
 
     @Override
     public void execute() {
-        lineJumper.fillInFront();
+        if (lineJumper != null) {
+            lineJumper.fillInFront();
+        }
+        else {
+            throw new IllegalStateException("This action is not bound with a GameWorld");
+        }
     }
 }

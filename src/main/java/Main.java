@@ -1,8 +1,10 @@
-import LineJumper.LineJumper;
+import LineJumper.LineJumperInitialiser;
 
 //TODO DELETE DEZE CLASS
 public class Main {
     public static void main(String[] args) {
-        System.out.println(new LineJumper(20,3,2));
+        LineJumperInitialiser initialiser = new LineJumperInitialiser();
+
+        System.out.println(initialiser.createNewGameWorld());
     }
 }

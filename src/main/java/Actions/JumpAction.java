@@ -8,6 +8,12 @@ public class JumpAction extends LineJumperAction {
 
     @Override
     public void execute() {
-        lineJumper.getPlayer().jump();
+        if (lineJumper != null) {
+            lineJumper.getPlayer().jump();
+        }
+        else {
+            throw new IllegalStateException("This action is not bound with a GameWorld");
+        }
+
     }
 }

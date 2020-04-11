@@ -8,6 +8,9 @@ public class HasDirtPredicate extends LineJumperPredicate {
 
     @Override
     public boolean evaluate() {
-        return lineJumper.getPlayer().hasDirt();
+        if (lineJumper != null) {
+            return lineJumper.getPlayer().hasDirt();
+        }
+        throw new IllegalStateException("This predicate has no GameWorld");
     }
 }

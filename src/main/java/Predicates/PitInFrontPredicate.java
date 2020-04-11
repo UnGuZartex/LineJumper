@@ -8,6 +8,9 @@ public class PitInFrontPredicate extends LineJumperPredicate {
 
     @Override
     public boolean evaluate() {
-        return lineJumper.playerHasPitInFront();
+        if (lineJumper != null) {
+            return lineJumper.playerHasPitInFront();
+        }
+        throw new IllegalStateException("This predicate has no GameWorld");
     }
 }
