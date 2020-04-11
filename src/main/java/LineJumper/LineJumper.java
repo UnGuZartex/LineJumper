@@ -15,8 +15,15 @@ import java.util.Random;
 
 public class LineJumper implements GameWorld {
 
-    // true = walkable, false = pit
+    /**
+     * Variable referencing to the line the player is walking on.
+     * This line is a boolean list, true is a walkable surface, false is a pit
+     */
     private boolean[] line;
+
+    /**
+     * Variable referencing to the player walking on the line
+     */
     private Player player;
 
     public LineJumper(boolean[] line, int playerJumpLength, int amountOfDirt) {
@@ -33,6 +40,13 @@ public class LineJumper implements GameWorld {
         return this.player;
     }
 
+
+    /**
+     *  Fills a pit in front of the player with dirt if the player has some
+     *
+     * @effect the player loses 1 dirt
+     * @post the line array is updated such that the pit in front is filled
+     */
     public void fillInFront() {
         if (playerHasPitInFront() && player.hasDirt()) {
             line[player.getPosition()+1] = true;
@@ -40,8 +54,23 @@ public class LineJumper implements GameWorld {
         }
     }
 
+    /**
+     * Checks whether or not a player has a pit in front of him/her/it
+     * @return true if a pit is in front of the player, false otherwise
+     */
+    public boolean playerHasPitInFront() {
+        return (!line[player.getPosition()+1]);
+    }
+
+    /**
+     * Generate a random line for the LineJumper that is solvable
+     * @param lineLength the length of the line
+     * @param playerJumpLength the jump distance of the player
+     * @param amountOfDirt the amount of dirt the player has
+     * @return a boolean list consisting out of a line that is solvable with this player.
+     */
     private boolean[] generateRandomLine(int lineLength, int playerJumpLength, int amountOfDirt) {
-      //TODO idk mss nog beter fixen enz
+      //TODO idk mss nog beter fixen enz (liefst wel)
         Random random = new Random();
         int falseCount = 0;
         boolean[] returnLine = new boolean[lineLength];
@@ -104,31 +133,28 @@ public class LineJumper implements GameWorld {
 
     @Override
     public void undo() {
-
+//TODO
     }
 
     @Override
     public void redo() {
+//TODO
 
     }
 
     @Override
     public void reset() {
-
+//TODO
     }
 
     @Override
     public void paint(Graphics graphics) {
-
+//TODO
     }
 
     @Override
     public String toString() {
         return Arrays.toString(line) + "   " + player.toString();
-    }
-
-    public boolean playerHasPitInFront() {
-        return (!line[player.getPosition()+1]);
     }
 
     private class LineJumperSnapshot implements Snapshot {
