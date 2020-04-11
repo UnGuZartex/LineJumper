@@ -19,7 +19,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: Executable
-        path: ./target/LineJumper-latest.jar
+        path: ./target/mygame-latest.jar
     - name: Download artifacts
       uses: actions/download-artifact@v1
       with:
