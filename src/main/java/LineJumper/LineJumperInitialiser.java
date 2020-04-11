@@ -18,14 +18,14 @@ import java.util.List;
 
 public class LineJumperInitialiser implements GameWorldType {
 
-    private ArrayList<LineJumperAction> actionList = new ArrayList<>(
+    private final ArrayList<LineJumperAction> actionList = new ArrayList<>(
             Arrays.asList(
                     new FillAction(),
                     new JumpAction()
             )
     );
 
-    private List<LineJumperPredicate> predicateList = new ArrayList<>(
+    private final List<LineJumperPredicate> predicateList = new ArrayList<>(
             Arrays.asList(
                     new HasDirtPredicate(),
                     new PitInFrontPredicate()

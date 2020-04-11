@@ -79,8 +79,8 @@ public class LineJumper implements GameWorld {
         action.execute();
 
         int newPosition = player.getPosition();
-        if (line[newPosition]) return Result.SUCCESS;
         if (newPosition >= line.length-1) return Result.END;
+        if (line[newPosition]) return Result.SUCCESS;
         return Result.FAILURE;
     }
 
@@ -124,7 +124,7 @@ public class LineJumper implements GameWorld {
 
     @Override
     public String toString() {
-        return Arrays.toString(line);
+        return Arrays.toString(line) + "   " + player.toString();
     }
 
     public boolean playerHasPitInFront() {
@@ -134,7 +134,7 @@ public class LineJumper implements GameWorld {
     private class LineJumperSnapshot implements Snapshot {
 
         private final boolean[] lineMemento = line.clone();
-        private final Player playerMemento = player.clone();
+        private final Player playerMemento = player.copy();
         private final LocalDateTime snapshotTime = LocalDateTime.now();
 
         @Override
