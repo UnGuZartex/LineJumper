@@ -1,17 +1,17 @@
 package Actions;
 
-public class MoveForwardAction extends LineJumperAction {
+import GameWorldAPI.GameWorld.GameWorld;
+import GameWorldAPI.GameWorldType.Action;
+import LineJumper.LineJumper;
+
+public class MoveForwardAction implements Action {
     @Override
     public String getName() {
         return "Move Forward";
     }
 
     @Override
-    public void execute() {
-        if (lineJumper != null) {
-            lineJumper.getPlayer().moveForward();
-        }
-        else {
-            throw new IllegalStateException("This action is not bound with a GameWorld");
-        }    }
+    public void execute(GameWorld gameWorld) {
+        ((LineJumper) gameWorld).getPlayer().moveForward();
+    }
 }

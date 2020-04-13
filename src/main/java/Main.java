@@ -2,16 +2,16 @@ import Actions.FillAction;
 import Actions.JumpAction;
 import Actions.MoveForwardAction;
 import LineJumper.LineJumper;
-import LineJumper.LineJumperInitialiser;
+import LineJumper.LineJumperInitializer;
 import Predicates.HasDirtPredicate;
 import Predicates.PitInFrontPredicate;
 
 //TODO DELETE DEZE CLASS
 public class Main {
     public static void main(String[] args) {
-        LineJumperInitialiser initialiser = new LineJumperInitialiser();
+        LineJumperInitializer initializer = new LineJumperInitializer();
 
-        System.out.println(initialiser.createNewGameWorld());
+        System.out.println(initializer.createNewGameWorld());
 
         boolean[] testArray = new boolean[] {true, false, false, true, false, false, true, true};
 

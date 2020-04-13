@@ -1,6 +1,10 @@
 package Actions;
 
-public class FillAction extends LineJumperAction {
+import GameWorldAPI.GameWorld.GameWorld;
+import GameWorldAPI.GameWorldType.Action;
+import LineJumper.LineJumper;
+
+public class FillAction implements Action {
 
     @Override
     public String getName() {
@@ -8,12 +12,7 @@ public class FillAction extends LineJumperAction {
     }
 
     @Override
-    public void execute() {
-        if (lineJumper != null) {
-            lineJumper.fillInFront();
-        }
-        else {
-            throw new IllegalStateException("This action is not bound with a GameWorld");
-        }
+    public void execute(GameWorld gameWorld) {
+        ((LineJumper) gameWorld).fillInFront();
     }
 }

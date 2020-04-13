@@ -24,7 +24,6 @@ public class Player {
         playerPosition += playerJumpLength;
     }
 
-
     public void moveForward() {
         playerPosition++;
     }

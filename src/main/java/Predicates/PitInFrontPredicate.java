@@ -1,16 +1,17 @@
 package Predicates;
 
-public class PitInFrontPredicate extends LineJumperPredicate {
+import GameWorldAPI.GameWorld.GameWorld;
+import GameWorldAPI.GameWorldType.Predicate;
+import LineJumper.LineJumper;
+
+public class PitInFrontPredicate implements Predicate {
     @Override
     public String getName() {
         return "Pit in Front";
     }
 
     @Override
-    public boolean evaluate() {
-        if (lineJumper != null) {
-            return lineJumper.playerHasPitInFront();
-        }
-        throw new IllegalStateException("This predicate has no GameWorld");
+    public boolean evaluate(GameWorld gameWorld) {
+        return ((LineJumper) gameWorld).playerHasPitInFront();
     }
 }

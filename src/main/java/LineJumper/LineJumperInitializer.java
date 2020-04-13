@@ -2,13 +2,11 @@ package LineJumper;
 
 import Actions.FillAction;
 import Actions.JumpAction;
-import Actions.LineJumperAction;
 import GameWorldAPI.GameWorld.GameWorld;
 import GameWorldAPI.GameWorldType.Action;
 import GameWorldAPI.GameWorldType.GameWorldType;
 import GameWorldAPI.GameWorldType.Predicate;
 import Predicates.HasDirtPredicate;
-import Predicates.LineJumperPredicate;
 import Predicates.PitInFrontPredicate;
 
 import java.io.File;
@@ -16,16 +14,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LineJumperInitialiser implements GameWorldType {
+public class LineJumperInitializer implements GameWorldType {
 
-    private final ArrayList<LineJumperAction> actionList = new ArrayList<>(
+    private final ArrayList<Action> actionList = new ArrayList<>(
             Arrays.asList(
                     new FillAction(),
                     new JumpAction()
             )
     );
 
-    private final List<LineJumperPredicate> predicateList = new ArrayList<>(
+    private final List<Predicate> predicateList = new ArrayList<>(
             Arrays.asList(
                     new HasDirtPredicate(),
                     new PitInFrontPredicate()

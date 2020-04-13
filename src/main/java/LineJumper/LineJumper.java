@@ -1,12 +1,10 @@
 package LineJumper;
 
-import Actions.LineJumperAction;
 import GameWorldAPI.GameWorld.GameWorld;
 import GameWorldAPI.GameWorld.Result;
 import GameWorldAPI.GameWorldType.Action;
 import GameWorldAPI.GameWorldType.Predicate;
 import GameWorldAPI.History.Snapshot;
-import Predicates.LineJumperPredicate;
 
 import java.awt.*;
 import java.time.LocalDateTime;
@@ -104,9 +102,7 @@ public class LineJumper implements GameWorld {
 
     @Override
     public Result executeAction(Action action) {
-        ((LineJumperAction) action).setLineJumper(this);
-        action.execute();
-
+        action.execute(this);
         int newPosition = player.getPosition();
         if (newPosition >= line.length-1) return Result.END;
         if (line[newPosition]) return Result.SUCCESS;
@@ -115,8 +111,7 @@ public class LineJumper implements GameWorld {
 
     @Override
     public boolean evaluatePredicate(Predicate predicate) {
-        ((LineJumperPredicate) predicate).setLineJumper(this);
-        return predicate.evaluate();
+        return predicate.evaluate(this);
     }
 
     @Override

@@ -1,16 +1,17 @@
 package Predicates;
 
-public class HasDirtPredicate extends LineJumperPredicate {
+import GameWorldAPI.GameWorld.GameWorld;
+import GameWorldAPI.GameWorldType.Predicate;
+import LineJumper.LineJumper;
+
+public class HasDirtPredicate implements Predicate {
     @Override
     public String getName() {
         return "Has Dirt";
     }
 
     @Override
-    public boolean evaluate() {
-        if (lineJumper != null) {
-            return lineJumper.getPlayer().hasDirt();
-        }
-        throw new IllegalStateException("This predicate has no GameWorld");
+    public boolean evaluate(GameWorld gameWorld) {
+        return ((LineJumper) gameWorld).getPlayer().hasDirt();
     }
 }
