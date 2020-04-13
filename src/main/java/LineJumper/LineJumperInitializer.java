@@ -47,6 +47,6 @@ public class LineJumperInitializer implements GameWorldType {
 
     @Override
     public GameWorld createNewGameWorld() {
-        return new LineJumper(5000,500, 0);
+        return new LineJumper(30,5, 4);
     }
 }

@@ -68,35 +68,41 @@ public class LineJumper implements GameWorld {
      * @return a boolean list consisting out of a line that is solvable with this player.
      */
     private boolean[] generateRandomLine(int lineLength, int playerJumpLength, int amountOfDirt) {
-      //TODO idk mss nog beter fixen enz (liefst wel)
+
+        if (amountOfDirt < 0) {
+            // TODO error throw
+        }
+
+        if (playerJumpLength <= 1) {
+            // TODO error throw
+        }
+
+        if (lineLength <= 1) {
+            // TODO error throw
+        }
+
         Random random = new Random();
         int falseCount = 0;
         boolean[] returnLine = new boolean[lineLength];
         returnLine[0] = true;
-        for (int i = 1; i < lineLength; i++) {
-            if (!returnLine[i]) {
-                returnLine[i] = random.nextBoolean();
-            }
+        returnLine[lineLength-1] = true;
+
+        for (int i = 1; i < lineLength - 1; i++) {
+            returnLine[i] = random.nextBoolean();
+
             if (falseCount >= playerJumpLength + amountOfDirt - 1) {
                 returnLine[i] = true;
             }
-            if (falseCount >= playerJumpLength) {
+            else if (falseCount >= playerJumpLength) {
                 amountOfDirt--;
                 if (amountOfDirt < 0) {
                     amountOfDirt = 0;
                 }
             }
-            if (!returnLine[i] && falseCount == 0 && i + playerJumpLength < lineLength && amountOfDirt == 0) {
-                returnLine[i+playerJumpLength - 1] = true;
-            }
-            if (!returnLine[i]) {
-                falseCount++;
-            }
-            else {
-                falseCount = 0;
-            }
+
+            falseCount = returnLine[i] ? 0 : ++falseCount;
         }
-        returnLine[lineLength-1] = true;
+
         return returnLine;
     }
 
