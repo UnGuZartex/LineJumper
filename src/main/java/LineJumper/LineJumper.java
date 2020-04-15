@@ -133,24 +133,8 @@ public class LineJumper implements GameWorld {
     }
 
     @Override
-    public void undo() {
-//TODO
-    }
-
-    @Override
-    public void redo() {
-//TODO
-
-    }
-
-    @Override
-    public void reset() {
-//TODO
-    }
-
-    @Override
     public void paint(Graphics graphics) {
-//TODO
+        //TODO
     }
 
     @Override
