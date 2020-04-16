@@ -34,9 +34,10 @@ public class LineWorldPainter {
 
         // Draw rest of the world
         for (int i = 0; i < line.length; i++) {
-            System.out.println(i);
+
             Image tileImage = line[i] ? library.getImage("grass") : library.getImage("pit");
             int distanceFromPlayer = player.getPosition() - i;
+            System.out.println("values " + i + " " + distanceFromPlayer);
 
             // Draw tile
             g.drawImage(tileImage, (int) (g.getClipBounds().getX() + tileWidth * (playerTilePosition + distanceFromPlayer)),
