@@ -34,11 +34,19 @@ public class LineWorldPainter {
 
         // Draw rest of the world
         for (int i = 0; i < line.length; i++) {
+            System.out.println(i);
             Image tileImage = line[i] ? library.getImage("grass") : library.getImage("pit");
             int distanceFromPlayer = player.getPosition() - i;
 
+            // Draw tile
             g.drawImage(tileImage, (int) (g.getClipBounds().getX() + tileWidth * (playerTilePosition + distanceFromPlayer)),
                     (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight,null);
+
+            // Draw goal
+            if (i == line.length - 1) {
+                g.drawImage(library.getImage("goal"), (int) (g.getClipBounds().getX() + tileWidth * playerTilePosition),
+                        (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight, null);
+            }
         }
     }
 }
