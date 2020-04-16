@@ -152,7 +152,7 @@ public class LineWorld implements GameWorld {
         }
         action.execute(this);
         int newPosition = player.getPosition();
-        if (newPosition >= line.length) return Result.END;
+        if (newPosition >= line.length - 1) return Result.END;
         if (line[newPosition]) return Result.SUCCESS;
         return Result.FAILURE;
     }
