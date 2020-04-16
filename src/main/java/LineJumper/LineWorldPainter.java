@@ -30,7 +30,7 @@ public class LineWorldPainter {
 
         // Draw player
         g.drawImage(library.getImage("player"), (int) (g.getClipBounds().getX() + tileWidth * playerTilePosition),
-                (int) g.getClipBounds().getY(), tileWidth, tileHeight, null);
+                (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight, null);
 
         // Draw rest of the world
         for (int i = 0; i < line.length; i++) {
@@ -38,7 +38,7 @@ public class LineWorldPainter {
             int distanceFromPlayer = player.getPosition() - i;
 
             g.drawImage(tileImage, (int) (g.getClipBounds().getX() + tileWidth * (playerTilePosition + distanceFromPlayer)),
-                    (int) (g.getClipBounds().getY() + tileHeight), tileWidth, tileHeight,null);
+                    (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight,null);
         }
     }
 }
