@@ -42,12 +42,13 @@ class JumpActionTest {
             player.moveForward();
         }
 
-        line = new boolean[nbOfMoveForward + random.nextInt(MAX_NUMBER_EXTRA_POS + 2) + 2];
+        line = new boolean[nbOfMoveForward + random.nextInt(MAX_NUMBER_EXTRA_POS + 2) + 2 + jumpLength];
 
         for (int i = 0; i < line.length; i++) {
             line[i] = random.nextBoolean();
         }
         line[nbOfMoveForward] = true;
+        line[nbOfMoveForward + jumpLength] = true;
 
         jumper = new LineJumper(line, player);
     }
@@ -72,5 +73,4 @@ class JumpActionTest {
         action.execute(jumper);
         assertEquals(nbOfMoveForward + jumpLength, jumper.getPlayer().getPosition());
     }
-
 }

@@ -80,8 +80,14 @@ public class LineJumper implements GameWorld {
      * Get the player of this line jumper.
      *
      * @return The player in this line jumper.
+     *
+     * @throws IllegalStateException
+     *         If No action may be done. This prevents the player state to change anymore.
      */
-    public Player getPlayer() {
+    public Player getPlayer() throws IllegalStateException {
+        if (!mayDoAction()) {
+            throw new IllegalStateException("No action may be done and the player shouldn't be changed anymore!");
+        }
         return this.player;
     }
 
@@ -123,14 +129,29 @@ public class LineJumper implements GameWorld {
      * @return END result if the player has passed by the last position of
      *         the line, SUCCESS if the player is standing on a walkable
      *         position and FAILURE in all other cases.
+     *
+     * @throws IllegalStateException
+     *         If the robot may not do any action any more.
      */
     @Override
-    public Result executeAction(Action action) {
+    public Result executeAction(Action action) throws IllegalStateException {
+        if (!mayDoAction()) {
+            throw new IllegalStateException("The player may not do any action!");
+        }
         action.execute(this);
         int newPosition = player.getPosition();
         if (newPosition >= line.length) return Result.END;
         if (line[newPosition]) return Result.SUCCESS;
         return Result.FAILURE;
+    }
+
+    /**
+     * Checks whether or not an action may be done.
+     *
+     * @return True if and only if the player is still on the line and not in a pit.
+     */
+    public boolean mayDoAction() {
+        return player.getPosition() < line.length && line[player.getPosition()];
     }
 
     /**

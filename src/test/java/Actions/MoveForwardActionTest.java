@@ -47,6 +47,7 @@ class MoveForwardActionTest {
             line[i] = random.nextBoolean();
         }
         line[nbOfMoveForward] = true;
+        line[nbOfMoveForward + 1] = true;
 
         jumper = new LineJumper(line, player);
     }

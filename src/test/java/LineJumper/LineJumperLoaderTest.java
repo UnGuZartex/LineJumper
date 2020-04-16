@@ -30,9 +30,14 @@ class LineJumperLoaderTest {
         assertTrue(defaultJumper.playerHasPitInFront());
         assertEquals(0, defaultJumper.getPlayer().getPosition());
         assertEquals(2, defaultJumper.getPlayer().getAmountOfDirt());
-        defaultJumper.getPlayer().jump(); // position is jump length
-        assertEquals(2, defaultJumper.getPlayer().getPosition());
+        defaultJumper.fillInFront();
         assertFalse(defaultJumper.playerHasPitInFront());
+        defaultJumper.getPlayer().moveForward();
+        assertTrue(defaultJumper.playerHasPitInFront());
+        assertEquals(1, defaultJumper.getPlayer().getPosition());
+        defaultJumper.getPlayer().jump(); // position is jump length + 1
+        assertEquals(3, defaultJumper.getPlayer().getPosition());
+        assertTrue(defaultJumper.playerHasPitInFront());
         // Other places in line can't be checked because of encapsulation.
     }
 
@@ -42,8 +47,7 @@ class LineJumperLoaderTest {
         assertEquals(0, randomJumper.getPlayer().getPosition());
         assertTrue(randomJumper.getPlayer().getAmountOfDirt() <= LineJumperLoader.MAX_AMOUNT_DIRT);
         assertTrue(randomJumper.getPlayer().getAmountOfDirt() >= LineJumperLoader.MIN_AMOUNT_DIRT);
-        randomJumper.getPlayer().jump(); // position is jump length
-        assertTrue(randomJumper.getPlayer().getPosition() <= LineJumperLoader.MAX_JUMP_LENGTH);
-        assertTrue(randomJumper.getPlayer().getPosition() >= LineJumperLoader.MIN_JUMP_LENGTH);
+        // Jump length can't be tested because you don't know if jump is possible and no getter exists
+        // Line can't be checked because of encapsulation
     }
 }

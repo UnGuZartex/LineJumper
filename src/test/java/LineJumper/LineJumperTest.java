@@ -1,7 +1,6 @@
 package LineJumper;
 
 import Actions.FillAction;
-import Actions.JumpAction;
 import Actions.MoveForwardAction;
 import GameWorldAPI.GameWorld.Result;
 import GameWorldAPI.GameWorldType.Action;
@@ -9,7 +8,6 @@ import GameWorldAPI.GameWorldType.Predicate;
 import GameWorldAPI.History.Snapshot;
 import Predicates.HasDirtPredicate;
 import Predicates.PitInFrontPredicate;
-import com.sun.net.httpserver.Authenticator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -145,10 +143,18 @@ class LineJumperTest {
     }
 
     @Test
-    void getPlayer() {
+    void getPlayer_mayDoAction() {
         assertEquals(playerBeforeEnd, jumperBeforeEnd.getPlayer());
         assertEquals(playerBeforePit, jumperBeforePit.getPlayer());
         assertEquals(playerNotBeforePit, jumperNotBeforePit.getPlayer());
+    }
+
+    @Test
+    void getPlayer_mayNotDoAction() {
+        jumperBeforeEnd.executeAction(moveForward);
+        jumperBeforePit.executeAction(moveForward);
+        assertThrows(IllegalStateException.class, () -> jumperBeforeEnd.getPlayer());
+        assertThrows(IllegalStateException.class, () -> jumperBeforePit.getPlayer());
     }
 
     @Test
@@ -189,10 +195,33 @@ class LineJumperTest {
     }
 
     @Test
-    void executeAction() {
+    void executeAction_mayDoAction() {
         assertEquals(Result.END, jumperBeforeEnd.executeAction(moveForward));
         assertEquals(Result.FAILURE, jumperBeforePit.executeAction(moveForward));
         assertEquals(Result.SUCCESS, jumperNotBeforePit.executeAction(moveForward));
+    }
+
+    @Test
+    void executeAction_mayNotDoAction() {
+        assertTrue(jumperBeforeEnd.mayDoAction());
+        assertTrue(jumperBeforePit.mayDoAction());
+        assertEquals(Result.END, jumperBeforeEnd.executeAction(moveForward));
+        assertEquals(Result.FAILURE, jumperBeforePit.executeAction(moveForward));
+        assertThrows(IllegalStateException.class, () -> jumperBeforeEnd.executeAction(moveForward));
+        assertThrows(IllegalStateException.class, () -> jumperBeforePit.executeAction(moveForward));
+    }
+
+    @Test
+    void mayDoAction() {
+        assertTrue(jumperBeforeEnd.mayDoAction());
+        assertTrue(jumperBeforePit.mayDoAction());
+        assertTrue(jumperNotBeforePit.mayDoAction());
+        jumperBeforeEnd.executeAction(moveForward);
+        jumperBeforePit.executeAction(moveForward);
+        jumperNotBeforePit.executeAction(moveForward);
+        assertFalse(jumperBeforeEnd.mayDoAction());
+        assertFalse(jumperBeforePit.mayDoAction());
+        assertTrue(jumperNotBeforePit.mayDoAction());
     }
 
     @Test

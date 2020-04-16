@@ -2,12 +2,11 @@ import Actions.FillAction;
 import Actions.JumpAction;
 import Actions.MoveForwardAction;
 import GameWorldAPI.GameWorld.GameWorld;
+import GameWorldAPI.GameWorld.Result;
 import GameWorldAPI.GameWorldType.Action;
 import GameWorldAPI.GameWorldType.GameWorldType;
 import GameWorldAPI.GameWorldType.Predicate;
-import LineJumper.LineJumper;
 import LineJumper.LineJumperInitializer;
-import LineJumper.Player;
 import Predicates.HasDirtPredicate;
 import Predicates.PitInFrontPredicate;
 
@@ -17,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MainTest { // TODO tests
+class MainTest {
 
     GameWorldType gameWorldType;
     GameWorld gameWorld;
@@ -47,46 +46,77 @@ class MainTest { // TODO tests
     }
 
     @Test
-    void dummy() {
-//        LineJumperInitializer initializer = new LineJumperInitializer();
-//
-//        System.out.println(initializer.createNewGameWorld());
-//
-//        boolean[] testArray = new boolean[] {true, false, false, true, false, false, true, true};
-//
-//        LineJumper jumper = new LineJumper(testArray, new Player(2,2));
-//
-//
-//        System.out.println(jumper);
-//
-//        System.out.println(jumper.evaluatePredicate(new HasDirtPredicate()));
-//
-//        System.out.println(jumper.evaluatePredicate(new PitInFrontPredicate()));
-//
-//        System.out.println(jumper.executeAction(new FillAction()));
-//        System.out.println(jumper);
-//
-//        System.out.println(jumper.executeAction(new MoveForwardAction()));
-//        System.out.println(jumper);
-//
-//        System.out.println(jumper.executeAction(new JumpAction()));
-//        System.out.println(jumper);
-//
-//        System.out.println(jumper.executeAction(new FillAction()));
-//        System.out.println(jumper);
-//
-//        System.out.println(jumper.executeAction(new MoveForwardAction()));
-//        System.out.println(jumper);
-//
-//        System.out.println(jumper.evaluatePredicate(new HasDirtPredicate()));
-//
-//        System.out.println(jumper.executeAction(new JumpAction()));
-//        System.out.println(jumper);
-//        System.out.println(jumper.evaluatePredicate(new PitInFrontPredicate()));
-//
-//
-//
-//        System.out.println(jumper.executeAction(new JumpAction()));
-//        System.out.println(jumper);
+    void success() {
+        assertTrue(gameWorld.evaluatePredicate(pitInFront));
+        assertTrue(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.SUCCESS, gameWorld.executeAction(fill));
+
+        assertFalse(gameWorld.evaluatePredicate(pitInFront));
+        assertTrue(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.SUCCESS, gameWorld.executeAction(moveForward));
+
+        assertTrue(gameWorld.evaluatePredicate(pitInFront));
+        assertTrue(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.SUCCESS, gameWorld.executeAction(jump));
+
+        assertTrue(gameWorld.evaluatePredicate(pitInFront));
+        assertTrue(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.SUCCESS, gameWorld.executeAction(fill));
+
+        assertFalse(gameWorld.evaluatePredicate(pitInFront));
+        assertFalse(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.SUCCESS, gameWorld.executeAction(moveForward));
+
+        assertTrue(gameWorld.evaluatePredicate(pitInFront));
+        assertFalse(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.SUCCESS, gameWorld.executeAction(jump));
+
+        assertFalse(gameWorld.evaluatePredicate(pitInFront));
+        assertFalse(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.SUCCESS, gameWorld.executeAction(moveForward));
+
+        assertFalse(gameWorld.evaluatePredicate(pitInFront));
+        assertFalse(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.END, gameWorld.executeAction(moveForward));
+
+        assertThrows(IllegalStateException.class, () -> gameWorld.executeAction(moveForward));
+    }
+
+    @Test
+    void failure_jumpInPit() {
+        assertTrue(gameWorld.evaluatePredicate(pitInFront));
+        assertTrue(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.FAILURE, gameWorld.executeAction(jump));
+
+        assertThrows(IllegalStateException.class, () -> gameWorld.executeAction(moveForward));
+    }
+
+    @Test
+    void failure_noDirtLeft() {
+        assertTrue(gameWorld.evaluatePredicate(pitInFront));
+        assertTrue(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.SUCCESS, gameWorld.executeAction(fill));
+
+        assertFalse(gameWorld.evaluatePredicate(pitInFront));
+        assertTrue(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.SUCCESS, gameWorld.executeAction(moveForward));
+
+        assertTrue(gameWorld.evaluatePredicate(pitInFront));
+        assertTrue(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.SUCCESS, gameWorld.executeAction(fill));
+
+        assertFalse(gameWorld.evaluatePredicate(pitInFront));
+        assertFalse(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.SUCCESS, gameWorld.executeAction(moveForward));
+
+        assertFalse(gameWorld.evaluatePredicate(pitInFront));
+        assertFalse(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.SUCCESS, gameWorld.executeAction(moveForward));
+
+        assertTrue(gameWorld.evaluatePredicate(pitInFront));
+        assertFalse(gameWorld.evaluatePredicate(hasDirt));
+        assertEquals(Result.FAILURE, gameWorld.executeAction(jump));
+
+        assertThrows(IllegalStateException.class, () -> gameWorld.executeAction(moveForward));
     }
 }
