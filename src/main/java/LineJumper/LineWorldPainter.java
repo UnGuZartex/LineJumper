@@ -7,7 +7,7 @@ import java.awt.*;
 public class LineWorldPainter {
 
     private static int tilesOnScreen = 5;
-    private static int playerTilePosition = 2;
+    private static int playerTileIndex = 1;
     private int tileWidth, tileHeight;
 
     public void paint(Graphics g, ImageLibrary library, boolean[] line, Player player) {
@@ -29,24 +29,37 @@ public class LineWorldPainter {
     private void drawWorld(Graphics g, ImageLibrary library, boolean[] line, Player player) {
 
         // Draw player
-        g.drawImage(library.getImage("player"), (int) (g.getClipBounds().getX() + tileWidth * playerTilePosition),
+        g.drawImage(library.getImage("player"), (int) (g.getClipBounds().getX() + tileWidth * playerTileIndex),
                 (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight, null);
 
         // Draw rest of the world
         for (int i = 0; i < line.length; i++) {
 
-            Image tileImage = line[i] ? library.getImage("grass") : library.getImage("pit");
             int distanceFromPlayer = i - player.getPosition();
-            System.out.println("values " + i + " " + distanceFromPlayer);
-            System.out.println("paint location X: " + (int) (g.getClipBounds().getX() + tileWidth * (playerTilePosition + distanceFromPlayer)));
+            Image tileImage = null;
+
+            if (line[i]) {
+                tileImage = library.getImage("grass");
+            }
+            else if (i > 0 && i < line.length) {
+                if (line[i - 1] && !line[i + 1]) {
+                    tileImage = library.getImage("pit_left");
+                }
+                else if (!line[i - 1] && line[i + 1]) {
+                    tileImage = library.getImage("pit_right");
+                }
+                else if (line[i - 1] && line[i + 1]) {
+                    tileImage = library.getImage("pit_full");
+                }
+            }
 
             // Draw tile
-            g.drawImage(tileImage, (int) (g.getClipBounds().getX() + tileWidth * (playerTilePosition + distanceFromPlayer)),
+            g.drawImage(tileImage, (int) (g.getClipBounds().getX() + tileWidth * (playerTileIndex + distanceFromPlayer)),
                     (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight,null);
 
             // Draw goal
             if (i == line.length - 1) {
-                g.drawImage(tileImage, (int) (g.getClipBounds().getX() + tileWidth * (playerTilePosition + distanceFromPlayer)),
+                g.drawImage(library.getImage("goal"), (int) (g.getClipBounds().getX() + tileWidth * (playerTileIndex + distanceFromPlayer)),
                         (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight,null);
             }
         }
