@@ -45,7 +45,7 @@ public class Player {
         if (amountOfDirt < 0) {
             throw new IllegalArgumentException("The amount of dirt is smaller than 0!");
         }
-        this.playerJumpLength = playerJumpLength; // TODO > 0?
+        this.playerJumpLength = playerJumpLength;
         this.amountOfDirt = amountOfDirt;
     }
 
