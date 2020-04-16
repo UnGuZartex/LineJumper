@@ -8,7 +8,7 @@ public class LineWorldPainter {
 
     private static int tilesOnScreen = 5;
     private static int playerTilePosition = 2;
-    private double tileWidth, tileHeight;
+    private int tileWidth, tileHeight;
 
     public void paint(Graphics g, ImageLibrary library, boolean[] line, Player player) {
         calculateWorldProperties(g, library);
@@ -22,15 +22,15 @@ public class LineWorldPainter {
 
         double tileSizeMultiplier = Math.min(g.getClipBounds().getWidth() / (double) (imageWidth * tilesOnScreen),
                 g.getClipBounds().getHeight() / (double) (imageHeight * 2));
-        tileWidth = imageWidth * tileSizeMultiplier;
-        tileHeight = imageHeight * tileSizeMultiplier;
+        tileWidth = (int) (imageWidth * tileSizeMultiplier);
+        tileHeight = (int) (imageHeight * tileSizeMultiplier);
     }
 
     private void drawWorld(Graphics g, ImageLibrary library, boolean[] line, Player player) {
 
         // Draw player
         g.drawImage(library.getImage("player"), (int) (g.getClipBounds().getX() + tileWidth * playerTilePosition),
-                (int) g.getClipBounds().getY(), null);
+                (int) g.getClipBounds().getY(), tileWidth, tileHeight, null);
 
         // Draw rest of the world
         for (int i = 0; i < line.length; i++) {
@@ -38,7 +38,7 @@ public class LineWorldPainter {
             int distanceFromPlayer = player.getPosition() - i;
 
             g.drawImage(tileImage, (int) (g.getClipBounds().getX() + tileWidth * (playerTilePosition + distanceFromPlayer)),
-                    (int) (g.getClipBounds().getY() + tileHeight),null);
+                    (int) (g.getClipBounds().getY() + tileHeight), tileWidth, tileHeight,null);
         }
     }
 }
