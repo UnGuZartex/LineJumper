@@ -29,8 +29,14 @@ public class LineWorldPainter {
     private void drawWorld(Graphics g, ImageLibrary library, boolean[] line, Player player) {
 
         // Draw player
-        g.drawImage(library.getImage("player"), (int) (g.getClipBounds().getX() + tileWidth * playerTileIndex),
-                (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight, null);
+        if (line[player.getPosition()]) {
+            g.drawImage(library.getImage("player"), (int) (g.getClipBounds().getX() + tileWidth * playerTileIndex),
+                    (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight, null);
+        }
+        else {
+            g.drawImage(library.getImage("player_falling"), (int) (g.getClipBounds().getX() + tileWidth * playerTileIndex),
+                    (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight, null);
+        }
 
         // Draw rest of the world
         for (int i = 0; i < line.length; i++) {
