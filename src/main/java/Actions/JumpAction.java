@@ -2,7 +2,7 @@ package Actions;
 
 import GameWorldAPI.GameWorld.GameWorld;
 import GameWorldAPI.GameWorldType.Action;
-import LineJumper.LineJumper;
+import LineJumper.LineWorld;
 
 /**
  * An action to make the player of a line jumper jump.
@@ -30,6 +30,6 @@ public class JumpAction implements Action {
      */
     @Override
     public void execute(GameWorld gameWorld) {
-        ((LineJumper) gameWorld).getPlayer().jump();
+        ((LineWorld) gameWorld).getPlayer().jump();
     }
 }

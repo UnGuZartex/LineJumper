@@ -15,12 +15,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LineJumperInitializer implements GameWorldType {
+/**
+ * A class that initializes a new line world.
+ *
+ * @author Alpha-team
+ */
+public class LineWorldInitializer implements GameWorldType {
 
     /**
      * Variable referring to the loader for line jumper.
      */
-    private final LineJumperLoader loader = new LineJumperLoader();
+    private final LineWorldLoader loader = new LineWorldLoader();
+
     /**
      * Variable referring to the actions possible. This is a list with 3
      * different actions: fill, jump and move forward.
@@ -32,6 +38,7 @@ public class LineJumperInitializer implements GameWorldType {
                     new MoveForwardAction()
             )
     );
+
     /**
      * Variable referring to the predicates possible. This is a list with 2
      * predicates: has dirt and pit in front.

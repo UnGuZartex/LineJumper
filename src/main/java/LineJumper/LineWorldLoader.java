@@ -3,11 +3,11 @@ package LineJumper;
 import java.util.Random;
 
 /**
- * A class to generate line jumpers and load them.
+ * A class to generate line worlds and load them.
  *
  * @author Alpha-team
  */
-public class LineJumperLoader {
+public class LineWorldLoader {
 
     /**
      * Variable referring to the default line for a line jumper, which looks like
@@ -17,6 +17,7 @@ public class LineJumperLoader {
      *
      */
     private static final boolean[] defaultLine = new boolean[] {true, false, false, true, false, false, true, true};
+
     /**
      * Variable referring to the default player, which has a jump length of 2 and a amount of
      * dirt of 2.
@@ -28,14 +29,15 @@ public class LineJumperLoader {
      *
      * @return A new line jumper with a copy of the default line and default player.
      */
-    public LineJumper loadDefaultLineJumper() {
-        return new LineJumper(defaultLine.clone(), defaultPlayer.copy());
+    public LineWorld loadDefaultLineJumper() {
+        return new LineWorld(defaultLine.clone(), defaultPlayer.copy());
     }
 
     /**
      * Variable referring to the random object.
      */
     private final Random random = new Random();
+
     /**
      * Variables referring to the range of the jump length, the amount of
      * dirt and the line length to generate.
@@ -50,13 +52,13 @@ public class LineJumperLoader {
      * @return A new random line jumper with a randomly generated line and a
      *         a player with random properties, all staying within the ranges.
      */
-    public LineJumper loadRandomLineJumper() {
+    public LineWorld loadRandomLineJumper() {
         int randomJumpLength = random.nextInt(MAX_JUMP_LENGTH + 1 - MIN_JUMP_LENGTH) + MIN_JUMP_LENGTH;
         int randomAmountDirt = random.nextInt(MAX_AMOUNT_DIRT + 1 - MIN_AMOUNT_DIRT) + MIN_AMOUNT_DIRT;
         int randomLineLength = random.nextInt(MAX_LINE_LENGTH + 1 - MIN_LINE_LENGTH) + MIN_LINE_LENGTH;
         Player randomPlayer = new Player(randomJumpLength, randomAmountDirt);
         boolean[] randomLine = generateRandomLine(randomLineLength, randomJumpLength, randomAmountDirt);
-        return new LineJumper(randomLine, randomPlayer);
+        return new LineWorld(randomLine, randomPlayer);
     }
 
     /**

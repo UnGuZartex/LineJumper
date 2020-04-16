@@ -15,10 +15,12 @@ public class Player {
      * this is set to 0.
      */
     private int playerPosition = 0;
+
     /**
      * Variable referring to the length this player can jump.
      */
     private final int playerJumpLength;
+
     /**
      * Variable referring to the amount of dirt a player can have.
      */

@@ -2,7 +2,7 @@ package Actions;
 
 import GameWorldAPI.GameWorld.GameWorld;
 import GameWorldAPI.GameWorldType.Action;
-import LineJumper.LineJumper;
+import LineJumper.LineWorld;
 
 /**
  * An action to fill a pit in front of the robot in a
@@ -32,6 +32,6 @@ public class FillAction implements Action {
      */
     @Override
     public void execute(GameWorld gameWorld) {
-        ((LineJumper) gameWorld).fillInFront();
+        ((LineWorld) gameWorld).fillInFront();
     }
 }

@@ -5,23 +5,35 @@ import GameWorldAPI.GameWorld.Result;
 import GameWorldAPI.GameWorldType.Action;
 import GameWorldAPI.GameWorldType.Predicate;
 import GameWorldAPI.History.Snapshot;
+import Images.ImageLibrary;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.awt.*;
 import java.time.LocalDateTime;
-import java.util.Random;
 
-public class LineJumper implements GameWorld {
+/**
+ * A class that represents the game world of this game.
+ *
+ * @author Alpha-team
+ */
+public class LineWorld implements GameWorld {
 
     /**
      * Variable referencing to the line the player is walking on.
      * This line is a boolean list, true is a walkable surface, false is a pit
      */
     private boolean[] line;
+
     /**
      * Variable referencing to the player walking on the line
      */
     private Player player;
+
+    /**
+     * Variable referring to the world painter of this line world.
+     */
+    private final LineWorldPainter worldPainter = new LineWorldPainter();
 
     /**
      * Initialise a new line jumper with given line and player.
@@ -37,9 +49,9 @@ public class LineJumper implements GameWorld {
      * @throws IllegalArgumentException
      *         If the given player is invalid.
      * @throws IllegalArgumentException
-     *         If the given player can not stand on the given line.
+     *         If the given player cannot stand on the given line.
      */
-    public LineJumper(boolean[] line, Player player) throws IllegalArgumentException {
+    public LineWorld(boolean[] line, Player player) throws IllegalArgumentException {
         if (!isValidLine(line)) {
             throw new IllegalArgumentException("The given line is not valid!");
         }
@@ -47,14 +59,14 @@ public class LineJumper implements GameWorld {
             throw new IllegalArgumentException("The given line is not valid!");
         }
         if (!line[player.getPosition()]) {
-            throw new IllegalArgumentException("The given player can not stand on the given line!");
+            throw new IllegalArgumentException("The given player cannot stand on the given line!");
         }
         this.line = line;
         this.player = player;
     }
 
     /**
-     * Checks whether or not the given line is valid.
+     * Checks whether the given line is valid.
      *
      * @param line The line to check.
      *
@@ -94,10 +106,10 @@ public class LineJumper implements GameWorld {
     /**
      *  Fills a pit in front of the player.
      *
-     * @post If the player player has dirt and a pit is in front, then the
+     * @post If the player has dirt, and a pit is in front, then the
      *       is the value of the line in front of the player set to true.
      *
-     * @effect If the player player has dirt and a pit is in front, then the
+     * @effect If the player has dirt, and a pit is in front, then the
      *         player uses dirt.
      */
     public void fillInFront() {
@@ -146,7 +158,7 @@ public class LineJumper implements GameWorld {
     }
 
     /**
-     * Checks whether or not an action may be done.
+     * Checks whether an action may be done.
      *
      * @return True if and only if the player is still on the line and not in a pit.
      */
@@ -202,9 +214,17 @@ public class LineJumper implements GameWorld {
         this.player = lineJumperSnapshot.playerMemento;
     }
 
+    /**
+     * Paint this world.
+     *
+     * @param g The graphics to paint this level with.
+     * @param library The image library containing the drawn images.
+     *
+     * @effect Paints this line world.
+     */
     @Override
-    public void paint(Graphics graphics) {
-        //TODO paint method
+    public void paint(Graphics g, ImageLibrary library) {
+        worldPainter.paint(g, library, line, player);
     }
 
     /**

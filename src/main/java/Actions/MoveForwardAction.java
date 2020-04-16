@@ -2,7 +2,7 @@ package Actions;
 
 import GameWorldAPI.GameWorld.GameWorld;
 import GameWorldAPI.GameWorldType.Action;
-import LineJumper.LineJumper;
+import LineJumper.LineWorld;
 
 /**
  * An action which moves the player in a line jumper one position forward.
@@ -28,6 +28,6 @@ public class MoveForwardAction implements Action {
      */
     @Override
     public void execute(GameWorld gameWorld) {
-        ((LineJumper) gameWorld).getPlayer().moveForward();
+        ((LineWorld) gameWorld).getPlayer().moveForward();
     }
 }

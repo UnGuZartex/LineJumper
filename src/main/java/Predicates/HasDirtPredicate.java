@@ -2,7 +2,7 @@ package Predicates;
 
 import GameWorldAPI.GameWorld.GameWorld;
 import GameWorldAPI.GameWorldType.Predicate;
-import LineJumper.LineJumper;
+import LineJumper.LineWorld;
 
 /**
  * A predicate to check whether or not there is dirt in front
@@ -32,6 +32,6 @@ public class HasDirtPredicate implements Predicate {
      */
     @Override
     public boolean evaluate(GameWorld gameWorld) {
-        return ((LineJumper) gameWorld).getPlayer().hasDirt();
+        return ((LineWorld) gameWorld).getPlayer().hasDirt();
     }
 }
