@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LineJumperTest {
 
-    LineJumper jumperBeforePit, jumperNotBeforePit, jumperBeforeEnd;
+    LineWorld jumperBeforePit, jumperNotBeforePit, jumperBeforeEnd;
     Player playerBeforePit, playerNotBeforePit, playerBeforeEnd;
     boolean[] lineBeforePit, lineNotBeforePit, lineBeforeEnd;
     int lineLength, posBeforePit, posNotBeforePit;
@@ -73,9 +73,9 @@ class LineJumperTest {
         lineNotBeforePit[posNotBeforePit + 1] = true;
         lineBeforeEnd[lineLength - 1] = true;
 
-        jumperBeforePit = new LineJumper(lineBeforePit, playerBeforePit);
-        jumperNotBeforePit = new LineJumper(lineNotBeforePit, playerNotBeforePit);
-        jumperBeforeEnd = new LineJumper(lineBeforeEnd, playerBeforeEnd);
+        jumperBeforePit = new LineWorld(lineBeforePit, playerBeforePit);
+        jumperNotBeforePit = new LineWorld(lineNotBeforePit, playerNotBeforePit);
+        jumperBeforeEnd = new LineWorld(lineBeforeEnd, playerBeforeEnd);
 
         pitInFront = new PitInFrontPredicate();
         hasDirt = new HasDirtPredicate();
@@ -104,42 +104,42 @@ class LineJumperTest {
 
     @Test
     void lineJumper_invalidLine() {
-        assertFalse(LineJumper.isValidLine(new boolean[0]));
-        assertTrue(LineJumper.isValidPlayer(playerBeforeEnd));
-        assertThrows(IllegalArgumentException.class, () -> new LineJumper(new boolean[0], playerBeforeEnd));
+        assertFalse(LineWorld.isValidLine(new boolean[0]));
+        assertTrue(LineWorld.isValidPlayer(playerBeforeEnd));
+        assertThrows(IllegalArgumentException.class, () -> new LineWorld(new boolean[0], playerBeforeEnd));
     }
 
     @Test
     void lineJumper_invalidPlayer() {
-        assertTrue(LineJumper.isValidLine(lineBeforeEnd));
-        assertFalse(LineJumper.isValidPlayer(null));
-        assertThrows(IllegalArgumentException.class, () -> new LineJumper(lineBeforeEnd, null));
+        assertTrue(LineWorld.isValidLine(lineBeforeEnd));
+        assertFalse(LineWorld.isValidPlayer(null));
+        assertThrows(IllegalArgumentException.class, () -> new LineWorld(lineBeforeEnd, null));
     }
 
     @Test
     void lineJumper_playerCantStandOnLine() {
         lineBeforeEnd[lineLength - 1] = false;
-        assertTrue(LineJumper.isValidLine(lineBeforeEnd));
-        assertTrue(LineJumper.isValidPlayer(playerBeforeEnd));
+        assertTrue(LineWorld.isValidLine(lineBeforeEnd));
+        assertTrue(LineWorld.isValidPlayer(playerBeforeEnd));
         assertFalse(lineBeforeEnd[playerBeforeEnd.getPosition()]);
-        assertThrows(IllegalArgumentException.class, () -> new LineJumper(lineBeforeEnd, playerBeforeEnd));
+        assertThrows(IllegalArgumentException.class, () -> new LineWorld(lineBeforeEnd, playerBeforeEnd));
     }
 
     @Test
     void isValidLine() {
-        assertFalse(LineJumper.isValidLine(new boolean[0]));
-        assertFalse(LineJumper.isValidLine(null));
-        assertTrue(LineJumper.isValidLine(lineBeforeEnd));
-        assertTrue(LineJumper.isValidLine(lineBeforePit));
-        assertTrue(LineJumper.isValidLine(lineNotBeforePit));
+        assertFalse(LineWorld.isValidLine(new boolean[0]));
+        assertFalse(LineWorld.isValidLine(null));
+        assertTrue(LineWorld.isValidLine(lineBeforeEnd));
+        assertTrue(LineWorld.isValidLine(lineBeforePit));
+        assertTrue(LineWorld.isValidLine(lineNotBeforePit));
     }
 
     @Test
     void isValidPlayer() {
-        assertFalse(LineJumper.isValidPlayer(null));
-        assertTrue(LineJumper.isValidPlayer(playerBeforeEnd));
-        assertTrue(LineJumper.isValidPlayer(playerNotBeforePit));
-        assertTrue(LineJumper.isValidPlayer(playerBeforePit));
+        assertFalse(LineWorld.isValidPlayer(null));
+        assertTrue(LineWorld.isValidPlayer(playerBeforeEnd));
+        assertTrue(LineWorld.isValidPlayer(playerNotBeforePit));
+        assertTrue(LineWorld.isValidPlayer(playerBeforePit));
     }
 
     @Test

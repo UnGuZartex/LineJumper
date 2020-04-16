@@ -1,7 +1,7 @@
 package Predicates;
 
 import GameWorldAPI.GameWorldType.Predicate;
-import LineJumper.LineJumper;
+import LineJumper.LineWorld;
 import LineJumper.Player;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HasDirtPredicateTest {
 
-    LineJumper jumper, jumperNoDirt;
+    LineWorld jumper, jumperNoDirt;
     Predicate predicate;
     Player player, playerNoDirt;
     int jumpLength, jumpLengthNoDirt;
@@ -58,8 +58,8 @@ class HasDirtPredicateTest {
         }
         lineNoDirt[nbOfMoveForward] = true;
 
-        jumper = new LineJumper(line, player);
-        jumperNoDirt = new LineJumper(lineNoDirt, playerNoDirt);
+        jumper = new LineWorld(line, player);
+        jumperNoDirt = new LineWorld(lineNoDirt, playerNoDirt);
     }
 
     @AfterEach

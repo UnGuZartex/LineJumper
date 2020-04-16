@@ -1,7 +1,7 @@
 package Predicates;
 
 import GameWorldAPI.GameWorldType.Predicate;
-import LineJumper.LineJumper;
+import LineJumper.LineWorld;
 import LineJumper.Player;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PitInFrontPredicateTest {
 
-    LineJumper jumper, jumperNoPit;
+    LineWorld jumper, jumperNoPit;
     Predicate predicate;
     Player player, playerNoPit;
     int jumpLength, jumpLengthNoPit;
@@ -61,8 +61,8 @@ class PitInFrontPredicateTest {
         lineNoPit[nbOfMoveForward] = true;
         lineNoPit[nbOfMoveForward + 1] = true;
 
-        jumper = new LineJumper(line, player);
-        jumperNoPit = new LineJumper(lineNoPit, playerNoPit);
+        jumper = new LineWorld(line, player);
+        jumperNoPit = new LineWorld(lineNoPit, playerNoPit);
     }
 
     @AfterEach

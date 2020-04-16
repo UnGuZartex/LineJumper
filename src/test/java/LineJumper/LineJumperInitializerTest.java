@@ -21,11 +21,11 @@ class LineJumperInitializerTest {
     List<Action> actions;
     List<Predicate> predicates;
     GameWorld gameWorld;
-    LineJumperInitializer initializer;
+    LineWorldInitializer initializer;
 
     @BeforeEach
     void setUp() {
-        initializer = new LineJumperInitializer();
+        initializer = new LineWorldInitializer();
     }
 
     @AfterEach
@@ -61,6 +61,6 @@ class LineJumperInitializerTest {
     @Test
     void createNewGameWorld() {
         gameWorld = initializer.createNewGameWorld();
-        assertTrue(gameWorld instanceof LineJumper);
+        assertTrue(gameWorld instanceof LineWorld);
     }
 }

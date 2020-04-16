@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LineJumperLoaderTest {
 
-    LineJumperLoader loader;
-    LineJumper defaultJumper, randomJumper;
+    LineWorldLoader loader;
+    LineWorld defaultJumper, randomJumper;
 
     @BeforeEach
     void setUp() {
-        loader = new LineJumperLoader();
+        loader = new LineWorldLoader();
 
     }
 
@@ -45,8 +45,8 @@ class LineJumperLoaderTest {
     void loadRandomLineJumper() {
         randomJumper = loader.loadRandomLineJumper();
         assertEquals(0, randomJumper.getPlayer().getPosition());
-        assertTrue(randomJumper.getPlayer().getAmountOfDirt() <= LineJumperLoader.MAX_AMOUNT_DIRT);
-        assertTrue(randomJumper.getPlayer().getAmountOfDirt() >= LineJumperLoader.MIN_AMOUNT_DIRT);
+        assertTrue(randomJumper.getPlayer().getAmountOfDirt() <= LineWorldLoader.MAX_AMOUNT_DIRT);
+        assertTrue(randomJumper.getPlayer().getAmountOfDirt() >= LineWorldLoader.MIN_AMOUNT_DIRT);
         // Jump length can't be tested because you don't know if jump is possible and no getter exists
         // Line can't be checked because of encapsulation
     }

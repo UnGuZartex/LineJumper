@@ -1,7 +1,7 @@
 package Actions;
 
 import GameWorldAPI.GameWorldType.Action;
-import LineJumper.LineJumper;
+import LineJumper.LineWorld;
 import LineJumper.Player;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JumpActionTest {
 
 
-    LineJumper jumper;
+    LineWorld jumper;
     Action action;
     Player player;
     int jumpLength;
@@ -50,7 +50,7 @@ class JumpActionTest {
         line[nbOfMoveForward] = true;
         line[nbOfMoveForward + jumpLength] = true;
 
-        jumper = new LineJumper(line, player);
+        jumper = new LineWorld(line, player);
     }
 
     @AfterEach
