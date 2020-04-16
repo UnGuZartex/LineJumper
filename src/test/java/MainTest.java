@@ -6,7 +6,7 @@ import GameWorldAPI.GameWorld.Result;
 import GameWorldAPI.GameWorldType.Action;
 import GameWorldAPI.GameWorldType.GameWorldType;
 import GameWorldAPI.GameWorldType.Predicate;
-import LineJumper.LineJumperInitializer;
+import LineJumper.LineWorldInitializer;
 import Predicates.HasDirtPredicate;
 import Predicates.PitInFrontPredicate;
 
@@ -25,7 +25,7 @@ class MainTest {
 
     @BeforeEach
     void setUp() {
-        gameWorldType = new LineJumperInitializer();
+        gameWorldType = new LineWorldInitializer();
         fill = (FillAction) gameWorldType.getAllActions().get(0);
         jump = (JumpAction) gameWorldType.getAllActions().get(1);
         moveForward = (MoveForwardAction) gameWorldType.getAllActions().get(2);
