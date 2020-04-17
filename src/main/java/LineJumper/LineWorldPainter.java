@@ -69,7 +69,7 @@ public class LineWorldPainter {
                         (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight,null);
 
                 // Draw extra tile
-                g.drawImage(library.getImage("grass"), xValue + tileWidth,
+                g.drawImage(library.getImage("pit_left"), xValue + tileWidth,
                         (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight,null);
             }
         }
