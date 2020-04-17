@@ -73,7 +73,7 @@ class MainTest {
 
         assertFalse(gameWorld.evaluatePredicate(pitInFront));
         assertFalse(gameWorld.evaluatePredicate(hasDirt));
-        assertEquals(Result.SUCCESS, gameWorld.executeAction(moveForward));
+        assertEquals(Result.END, gameWorld.executeAction(moveForward));
 
         assertFalse(gameWorld.evaluatePredicate(pitInFront));
         assertFalse(gameWorld.evaluatePredicate(hasDirt));

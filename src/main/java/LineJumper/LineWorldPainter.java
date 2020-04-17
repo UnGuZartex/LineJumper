@@ -7,7 +7,6 @@ import java.awt.*;
 public class LineWorldPainter {
 
     private static int tilesOnScreen = 5;
-    private static int playerTileIndex = 1;
     private int tileWidth, tileHeight;
 
     public void paint(Graphics g, ImageLibrary library, boolean[] line, Player player) {
@@ -30,11 +29,11 @@ public class LineWorldPainter {
 
         // Draw player
         if (player.getPosition() < line.length && !line[player.getPosition()]) {
-            g.drawImage(library.getImage("player_falling"), (int) (g.getClipBounds().getX() + tileWidth * playerTileIndex),
+            g.drawImage(library.getImage("player_falling"), (int) (g.getClipBounds().getX() + tileWidth),
                     (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight, null);
         }
         else {
-            g.drawImage(library.getImage("player"), (int) (g.getClipBounds().getX() + tileWidth * playerTileIndex),
+            g.drawImage(library.getImage("player"), (int) (g.getClipBounds().getX() + tileWidth),
                     (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight, null);
         }
 
@@ -60,13 +59,27 @@ public class LineWorldPainter {
             }
 
             // Draw tile
-            g.drawImage(tileImage, (int) (g.getClipBounds().getX() + tileWidth * (playerTileIndex + distanceFromPlayer)),
+            g.drawImage(tileImage, (int) (g.getClipBounds().getX() + tileWidth * distanceFromPlayer),
                     (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight,null);
 
             // Draw goal
             if (i == line.length - 1) {
-                g.drawImage(library.getImage("goal"), (int) (g.getClipBounds().getX() + tileWidth * (playerTileIndex + distanceFromPlayer)),
+                int xValue = (int) (g.getClipBounds().getX() + tileWidth * distanceFromPlayer);
+                g.drawImage(library.getImage("goal"), xValue,
                         (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight,null);
+
+                if (xValue + tileWidth < g.getClipBounds().getX() + g.getClipBounds().getWidth()) {
+
+                    int index = 1;
+
+                    do {
+                        xValue = (int) (g.getClipBounds().getX() + tileWidth * (distanceFromPlayer + index));
+                        g.drawImage(library.getImage("grass"), xValue,
+                                (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight,null);
+                        index++;
+                    }
+                    while (xValue + tileWidth < g.getClipBounds().getX() + g.getClipBounds().getWidth());
+                }
             }
         }
     }
