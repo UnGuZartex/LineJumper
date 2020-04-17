@@ -29,11 +29,11 @@ public class LineWorldPainter {
 
         // Draw player
         if (player.getPosition() < line.length && !line[player.getPosition()]) {
-            g.drawImage(library.getImage("player_falling"), (int) (g.getClipBounds().getX() + tileWidth),
+            g.drawImage(library.getImage("player_falling"), (int) (g.getClipBounds().getX()),
                     (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight, null);
         }
         else {
-            g.drawImage(library.getImage("player"), (int) (g.getClipBounds().getX() + tileWidth),
+            g.drawImage(library.getImage("player"), (int) (g.getClipBounds().getX()),
                     (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight, null);
         }
 
@@ -75,7 +75,7 @@ public class LineWorldPainter {
                     do {
                         xValue = (int) (g.getClipBounds().getX() + tileWidth * (distanceFromPlayer + index));
                         g.drawImage(library.getImage("grass"), xValue,
-                                (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight,null);
+                                (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight,null);
                         index++;
                     }
                     while (xValue + tileWidth < g.getClipBounds().getX() + g.getClipBounds().getWidth());
