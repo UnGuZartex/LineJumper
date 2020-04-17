@@ -40,7 +40,7 @@ public class LineWorldPainter {
         // Draw rest of the world
         for (int i = 0; i < line.length; i++) {
 
-            int distanceFromPlayer = i - player.getPosition();
+            int distanceFromPlayer = i - Math.min(player.getPosition(), line.length - 1);
             Image tileImage = null;
 
             if (line[i]) {
@@ -68,18 +68,9 @@ public class LineWorldPainter {
                 g.drawImage(library.getImage("goal"), xValue,
                         (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight * 2), tileWidth, tileHeight,null);
 
-                if (xValue + tileWidth < g.getClipBounds().getX() + g.getClipBounds().getWidth()) {
-
-                    int index = 1;
-
-                    do {
-                        xValue = (int) (g.getClipBounds().getX() + tileWidth * (distanceFromPlayer + index));
-                        g.drawImage(library.getImage("grass"), xValue,
-                                (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight,null);
-                        index++;
-                    }
-                    while (xValue + tileWidth < g.getClipBounds().getX() + g.getClipBounds().getWidth());
-                }
+                // Draw extra tile
+                g.drawImage(library.getImage("grass"), xValue + tileWidth,
+                        (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight,null);
             }
         }
     }
