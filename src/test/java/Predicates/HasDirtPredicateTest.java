@@ -57,6 +57,8 @@ class HasDirtPredicateTest {
             lineNoDirt[i] = random.nextBoolean();
         }
         lineNoDirt[nbOfMoveForward] = true;
+        lineNoDirt[lineNoDirt.length - 1] = true;
+        line[line.length - 1] = true;
 
         jumper = new LineWorld(line, player);
         jumperNoDirt = new LineWorld(lineNoDirt, playerNoDirt);

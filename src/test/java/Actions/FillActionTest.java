@@ -48,6 +48,7 @@ class FillActionTest {
         }
         line[nbOfMoveForward] = true;
         line[nbOfMoveForward + 1] = false;
+        line[line.length - 1] = true;
 
         jumper = new LineWorld(line, player);
     }

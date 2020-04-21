@@ -37,8 +37,8 @@ class LineJumperTest {
         random = new Random();
 
         lineLength = random.nextInt(MAX_LINE_LENGTH + 1 - MIN_LINE_LENGTH) + MIN_LINE_LENGTH;
-        posBeforePit = random.nextInt(lineLength - 1 - MIN_PLAYER_POS) + MIN_PLAYER_POS;
-        posNotBeforePit = random.nextInt(lineLength - 1 - MIN_PLAYER_POS) + MIN_PLAYER_POS;
+        posBeforePit = random.nextInt(lineLength - 2 - MIN_PLAYER_POS) + MIN_PLAYER_POS;
+        posNotBeforePit = random.nextInt(lineLength - 2 - MIN_PLAYER_POS) + MIN_PLAYER_POS;
         jumpLengthBeforePit = random.nextInt(MAX_JUMP_LENGTH + 1 - MIN_JUMP_LENGTH) + MIN_JUMP_LENGTH;
         jumpLengthNotBeforePut = random.nextInt(MAX_JUMP_LENGTH + 1 - MIN_JUMP_LENGTH) + MIN_JUMP_LENGTH;
         jumpLengthBeforeEnd = random.nextInt(MAX_JUMP_LENGTH + 1 - MIN_JUMP_LENGTH) + MIN_JUMP_LENGTH;
@@ -50,12 +50,12 @@ class LineJumperTest {
         while (playerBeforePit.getPosition() < posBeforePit) {
             playerBeforePit.moveForward();
         }
-        playerNotBeforePit = new Player(jumpLengthBeforePit, amountOfDirtNotBeforePit);
+        playerNotBeforePit = new Player(jumpLengthNotBeforePut, amountOfDirtNotBeforePit);
         while (playerNotBeforePit.getPosition() < posNotBeforePit) {
             playerNotBeforePit.moveForward();
         }
-        playerBeforeEnd = new Player(jumpLengthBeforePit, amountOfDirtBeforeEnd);
-        while (playerBeforeEnd.getPosition() < lineLength - 1) {
+        playerBeforeEnd = new Player(jumpLengthBeforeEnd, amountOfDirtBeforeEnd);
+        while (playerBeforeEnd.getPosition() < lineLength - 2) {
             playerBeforeEnd.moveForward();
         }
 
@@ -71,6 +71,10 @@ class LineJumperTest {
         lineBeforePit[posBeforePit + 1] = false;
         lineNotBeforePit[posNotBeforePit] = true;
         lineNotBeforePit[posNotBeforePit + 1] = true;
+        lineBeforeEnd[lineLength - 2] = true;
+
+        lineBeforePit[lineLength - 1] = true;
+        lineNotBeforePit[lineLength - 1] = true;
         lineBeforeEnd[lineLength - 1] = true;
 
         jumperBeforePit = new LineWorld(lineBeforePit, playerBeforePit);
@@ -118,10 +122,16 @@ class LineJumperTest {
 
     @Test
     void lineJumper_playerCantStandOnLine() {
-        lineBeforeEnd[lineLength - 1] = false;
+        lineBeforeEnd[playerBeforeEnd.getPosition()] = false;
         assertTrue(LineWorld.isValidLine(lineBeforeEnd));
         assertTrue(LineWorld.isValidPlayer(playerBeforeEnd));
         assertFalse(lineBeforeEnd[playerBeforeEnd.getPosition()]);
+        assertThrows(IllegalArgumentException.class, () -> new LineWorld(lineBeforeEnd, playerBeforeEnd));
+    }
+
+    @Test
+    void lineJumper_notWalkableEnd() {
+        lineBeforeEnd[lineLength - 1] = false;
         assertThrows(IllegalArgumentException.class, () -> new LineWorld(lineBeforeEnd, playerBeforeEnd));
     }
 
@@ -192,6 +202,8 @@ class LineJumperTest {
         assertFalse(jumperBeforeEnd.playerHasPitInFront());
         assertTrue(jumperBeforePit.playerHasPitInFront());
         assertFalse(jumperNotBeforePit.playerHasPitInFront());
+        playerBeforeEnd.moveForward();
+        assertFalse(jumperBeforeEnd.playerHasPitInFront());
     }
 
     @Test
