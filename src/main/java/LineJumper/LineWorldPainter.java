@@ -86,7 +86,7 @@ public class LineWorldPainter {
     }
 
     private void drawIcons(Graphics g, ImageLibrary library, Player player) {
-        int xDelta = 50;
+        int xDelta = tileWidth / 2;
         int yDelta = 50;
         int realIconSize = library.getImage("dirt").getWidth(null);
         int gameIconSize = (int) ((tileWidth / realIconSize * realIconSize) * 0.5);
