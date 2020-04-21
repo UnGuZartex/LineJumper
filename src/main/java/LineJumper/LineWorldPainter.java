@@ -92,13 +92,21 @@ public class LineWorldPainter {
         int xPos = (int) (g.getClipBounds().getX() + xDelta);
         int yPos = (int) (g.getClipBounds().getY() + yDelta);
 
+        // Set bigger font
+        Font currentFont = g.getFont();
+        Font newFont = currentFont.deriveFont(currentFont.getSize() * 4F);
+        g.setFont(newFont);
+
         // Draw dirt icon and amount of dirt left
         g.drawImage(library.getImage("dirt"), xPos, yPos, gameIconSize, gameIconSize, null);
-
-        g.drawString("x " + player.getAmountOfDirt(), xPos + gameIconSize + 10, yPos);
+        g.drawString("x " + player.getAmountOfDirt(), xPos + gameIconSize + 10, yPos + gameIconSize / 2);
 
         // Draw jump icon and jump length
+        yPos = (int) (yPos + gameIconSize * 1.5);
         g.drawImage(library.getImage("jumpIcon"), xPos,
-                (int) (yPos + gameIconSize * 1.5), gameIconSize, gameIconSize, null);
+                yPos, gameIconSize, gameIconSize, null);
+        g.drawString(String.valueOf(player.getPlayerJumpLength()), xPos + gameIconSize + 10, yPos + gameIconSize / 2);
+
+        g.setFont(currentFont);
     }
 }

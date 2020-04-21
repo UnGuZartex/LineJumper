@@ -7,7 +7,6 @@ import GameWorldAPI.GameWorldType.Predicate;
 import GameWorldAPI.History.Snapshot;
 import Images.ImageLibrary;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.awt.*;
 import java.time.LocalDateTime;
