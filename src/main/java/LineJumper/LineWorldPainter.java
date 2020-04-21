@@ -8,6 +8,7 @@ public class LineWorldPainter {
 
     private static int tilesOnScreen = 5;
     private int tileWidth, tileHeight;
+    private Color backgroundColor = new Color(84, 214, 240);
 
     public void paint(Graphics g, ImageLibrary library, boolean[] line, Player player) {
         calculateWorldProperties(g, library);
@@ -28,7 +29,7 @@ public class LineWorldPainter {
     }
 
     private void drawBackground(Graphics g) {
-        g.setColor(Color.blue);
+        g.setColor(backgroundColor);
         Rectangle clipRect = g.getClipBounds();
         g.fillRect(clipRect.x, clipRect.y, clipRect.width, clipRect.height);
         g.setColor(Color.black);
@@ -99,13 +100,15 @@ public class LineWorldPainter {
 
         // Draw dirt icon and amount of dirt left
         g.drawImage(library.getImage("dirt"), xPos, yPos, gameIconSize, gameIconSize, null);
-        g.drawString("x " + player.getAmountOfDirt(), xPos + gameIconSize + 10, yPos + (gameIconSize) / 2);
+        g.drawString("x " + player.getAmountOfDirt(), xPos + gameIconSize + 10,
+                yPos + (gameIconSize + g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
 
         // Draw jump icon and jump length
         yPos = (int) (yPos + gameIconSize * 1.5);
         g.drawImage(library.getImage("jumpIcon"), xPos,
                 yPos, gameIconSize, gameIconSize, null);
-        g.drawString(String.valueOf(player.getPlayerJumpLength()), xPos + gameIconSize + 10, yPos + (gameIconSize) / 2);
+        g.drawString(String.valueOf(player.getPlayerJumpLength()), xPos + gameIconSize + 10,
+                yPos + (gameIconSize + g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
 
         g.setFont(currentFont);
     }
