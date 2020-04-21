@@ -28,10 +28,10 @@ public class LineWorldPainter {
     }
 
     private void drawBackground(Graphics g) {
-        g.setColor(Color.blue);
         Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(Color.blue);
         g2.draw(g.getClipBounds());
-        g.setColor(Color.black);
+        g2.setColor(Color.black);
     }
 
     private void drawWorld(Graphics g, ImageLibrary library, boolean[] line, Player player) {
@@ -87,9 +87,17 @@ public class LineWorldPainter {
     private void drawIcons(Graphics g, ImageLibrary library, Player player) {
         int xDelta = 50;
         int yDelta = 50;
-        int imageSize = 22;
+        int realIconSize = library.getImage("dirt").getWidth(null);
+        int gameIconSize = tileWidth / realIconSize * realIconSize;
 
+        // Draw dirt icon and amount of dirt left
         g.drawImage(library.getImage("dirt"), (int) (g.getClipBounds().getX() + xDelta),
-                (int) (g.getClipBounds().getY() + yDelta), imageSize, imageSize, null);
+                (int) (g.getClipBounds().getY() + yDelta), gameIconSize, gameIconSize, null);
+
+
+
+        // Draw jump icon and jump length
+        g.drawImage(library.getImage("dirt"), (int) (g.getClipBounds().getX() + xDelta),
+                (int) (g.getClipBounds().getY() + yDelta + gameIconSize * 1.5), gameIconSize, gameIconSize, null);
     }
 }
