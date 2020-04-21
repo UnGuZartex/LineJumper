@@ -13,6 +13,7 @@ public class LineWorldPainter {
         calculateWorldProperties(g, library);
         drawBackground(g);
         drawWorld(g, library, line, player);
+        drawIcons(g, library, player);
     }
 
     private void calculateWorldProperties(Graphics g, ImageLibrary library) {
