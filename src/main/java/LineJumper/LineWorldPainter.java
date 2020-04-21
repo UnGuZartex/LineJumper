@@ -11,6 +11,7 @@ public class LineWorldPainter {
 
     public void paint(Graphics g, ImageLibrary library, boolean[] line, Player player) {
         calculateWorldProperties(g, library);
+        drawBackground(g);
         drawWorld(g, library, line, player);
     }
 
@@ -23,6 +24,13 @@ public class LineWorldPainter {
                 g.getClipBounds().getHeight() / (double) (imageHeight * 2));
         tileWidth = (int) (imageWidth * tileSizeMultiplier);
         tileHeight = (int) (imageHeight * tileSizeMultiplier);
+    }
+
+    private void drawBackground(Graphics g) {
+        g.setColor(Color.blue);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.draw(g.getClipBounds());
+        g.setColor(Color.black);
     }
 
     private void drawWorld(Graphics g, ImageLibrary library, boolean[] line, Player player) {
@@ -73,5 +81,14 @@ public class LineWorldPainter {
                         (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight,null);
             }
         }
+    }
+
+    private void drawIcons(Graphics g, ImageLibrary library, Player player) {
+        int xDelta = 50;
+        int yDelta = 50;
+        int imageSize = 22;
+
+        g.drawImage(library.getImage("dirt"), (int) (g.getClipBounds().getX() + xDelta),
+                (int) (g.getClipBounds().getY() + yDelta), imageSize, imageSize, null);
     }
 }
