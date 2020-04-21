@@ -94,6 +94,7 @@ public class LineWorldPainter {
         g.drawImage(library.getImage("dirt"), (int) (g.getClipBounds().getX() + xDelta),
                 (int) (g.getClipBounds().getY() + yDelta), gameIconSize, gameIconSize, null);
 
+        // TODO 
 
 
         // Draw jump icon and jump length
