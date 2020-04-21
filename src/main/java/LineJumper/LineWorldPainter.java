@@ -30,7 +30,7 @@ public class LineWorldPainter {
     private void drawBackground(Graphics g) {
         g.setColor(Color.blue);
         Rectangle clipRect = g.getClipBounds();
-        g.drawRect(clipRect.x, clipRect.y, clipRect.width, clipRect.height);
+        g.fillRect(clipRect.x, clipRect.y, clipRect.width, clipRect.height);
         g.setColor(Color.black);
     }
 
