@@ -89,16 +89,16 @@ public class LineWorldPainter {
         int yDelta = 50;
         int realIconSize = library.getImage("dirt").getWidth(null);
         int gameIconSize = (int) ((tileWidth / realIconSize * realIconSize) * 0.5);
+        int xPos = (int) (g.getClipBounds().getX() + xDelta);
+        int yPos = (int) (g.getClipBounds().getY() + yDelta);
 
         // Draw dirt icon and amount of dirt left
-        g.drawImage(library.getImage("dirt"), (int) (g.getClipBounds().getX() + xDelta),
-                (int) (g.getClipBounds().getY() + yDelta), gameIconSize, gameIconSize, null);
+        g.drawImage(library.getImage("dirt"), xPos, yPos, gameIconSize, gameIconSize, null);
 
-        // TODO
-
+        g.drawString("x " + player.getAmountOfDirt(), xPos + gameIconSize + 10, yPos);
 
         // Draw jump icon and jump length
-        g.drawImage(library.getImage("dirt"), (int) (g.getClipBounds().getX() + xDelta),
-                (int) (g.getClipBounds().getY() + yDelta + gameIconSize * 1.5), gameIconSize, gameIconSize, null);
+        g.drawImage(library.getImage("jumpIcon"), xPos,
+                (int) (yPos + gameIconSize * 1.5), gameIconSize, gameIconSize, null);
     }
 }
