@@ -29,8 +29,9 @@ public class LineWorldPainter {
 
     private void drawBackground(Graphics g) {
         g.setColor(Color.blue);
-        g2.draw(g.getClipBounds());
-        g2.setColor(Color.black);
+        Rectangle clipRect = g.getClipBounds();
+        g.drawRect(clipRect.x, clipRect.y, clipRect.width, clipRect.height);
+        g.setColor(Color.black);
     }
 
     private void drawWorld(Graphics g, ImageLibrary library, boolean[] line, Player player) {
