@@ -86,12 +86,11 @@ public class LineWorldPainter {
     }
 
     private void drawIcons(Graphics g, ImageLibrary library, Player player) {
-        int xDelta = (int) (tileWidth * 0.4);
-        int yDelta = 50;
+        int delta = (int) (tileWidth * 0.3);
         int realIconSize = library.getImage("dirt").getWidth(null);
         int gameIconSize = (int) ((Math.ceil(tileWidth / (double) realIconSize) * realIconSize) * 0.5);
-        int xPos = (int) (g.getClipBounds().getX() + xDelta);
-        int yPos = (int) (g.getClipBounds().getY() + yDelta);
+        int xPos = (int) (g.getClipBounds().getX() + delta);
+        int yPos = (int) (g.getClipBounds().getY() + delta);
 
         // Set bigger font
         Font currentFont = g.getFont();
