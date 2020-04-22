@@ -89,7 +89,7 @@ public class LineWorldPainter {
         int xDelta = tileWidth / 2;
         int yDelta = 50;
         int realIconSize = library.getImage("dirt").getWidth(null);
-        int gameIconSize = (int) ((tileWidth / realIconSize * realIconSize) * 0.5);
+        int gameIconSize = (int) ((Math.ceil(tileWidth / (double) realIconSize) * realIconSize) * 0.5);
         int xPos = (int) (g.getClipBounds().getX() + xDelta);
         int yPos = (int) (g.getClipBounds().getY() + yDelta);
 
