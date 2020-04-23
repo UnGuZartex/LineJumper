@@ -98,6 +98,15 @@ public class Player {
     }
 
     /**
+     * Return the player jump length.
+     *
+     * @return the player jump length.
+     */
+    public int getPlayerJumpLength() {
+        return playerJumpLength;
+    }
+
+    /**
      * Make this player jump.
      *
      * @post The player position is increased with the length

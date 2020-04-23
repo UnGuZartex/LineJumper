@@ -7,7 +7,6 @@ import GameWorldAPI.GameWorldType.Predicate;
 import GameWorldAPI.History.Snapshot;
 import Images.ImageLibrary;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.awt.*;
 import java.time.LocalDateTime;
@@ -50,6 +49,8 @@ public class LineWorld implements GameWorld {
      *         If the given player is invalid.
      * @throws IllegalArgumentException
      *         If the given player cannot stand on the given line.
+     * @throws IllegalArgumentException
+     *         If the given line doesn't have a walkable end.
      */
     public LineWorld(boolean[] line, Player player) throws IllegalArgumentException {
         if (!isValidLine(line)) {
@@ -60,6 +61,9 @@ public class LineWorld implements GameWorld {
         }
         if (!line[player.getPosition()]) {
             throw new IllegalArgumentException("The given player cannot stand on the given line!");
+        }
+        if (!line[line.length-1]) {
+            throw new IllegalArgumentException("The given line doesn't have a walkable end!");
         }
         this.line = line;
         this.player = player;
@@ -138,7 +142,7 @@ public class LineWorld implements GameWorld {
      *
      * @param action The action to execute.
      *
-     * @return END result if the player has passed by the last position of
+     * @return END result if the player is on the last position of
      *         the line, SUCCESS if the player is standing on a walkable
      *         position and FAILURE in all other cases.
      *
@@ -151,19 +155,16 @@ public class LineWorld implements GameWorld {
             throw new IllegalStateException("The player may not do any action!");
         }
         action.execute(this);
-        int newPosition = player.getPosition();
-        if (newPosition >= line.length - 1) return Result.END;
-        if (line[newPosition]) return Result.SUCCESS;
-        return Result.FAILURE;
+        return getResult();
     }
 
     /**
      * Checks whether an action may be done.
      *
-     * @return True if and only if the player is still on the line and not in a pit.
+     * @return If the current result is a success.
      */
     public boolean mayDoAction() {
-        return player.getPosition() < line.length && line[player.getPosition()];
+        return getResult() == Result.SUCCESS;
     }
 
     /**
@@ -228,7 +229,21 @@ public class LineWorld implements GameWorld {
     }
 
     /**
-     * A private class for snapshots of a line jumpers.
+     * Get the result of this line world.
+     *
+     * @return The ending result if the player is at the end of the line, the
+     *         success if the player is on a walkable position and otherwise
+     *         the failure result.
+     */
+    private Result getResult() {
+        int newPosition = player.getPosition();
+        if (newPosition >= line.length - 1) return Result.END;
+        if (line[newPosition]) return Result.SUCCESS;
+        return Result.FAILURE;
+    }
+
+    /**
+     * A private class for snapshots of a line worlds.
      */
     private class LineJumperSnapshot implements Snapshot {
 

@@ -8,10 +8,13 @@ public class LineWorldPainter {
 
     private static int tilesOnScreen = 5;
     private int tileWidth, tileHeight;
+    private Color backgroundColor = new Color(84, 214, 240);
 
     public void paint(Graphics g, ImageLibrary library, boolean[] line, Player player) {
         calculateWorldProperties(g, library);
+        drawBackground(g);
         drawWorld(g, library, line, player);
+        drawIcons(g, library, player);
     }
 
     private void calculateWorldProperties(Graphics g, ImageLibrary library) {
@@ -23,6 +26,13 @@ public class LineWorldPainter {
                 g.getClipBounds().getHeight() / (double) (imageHeight * 2));
         tileWidth = (int) (imageWidth * tileSizeMultiplier);
         tileHeight = (int) (imageHeight * tileSizeMultiplier);
+    }
+
+    private void drawBackground(Graphics g) {
+        g.setColor(backgroundColor);
+        Rectangle clipRect = g.getClipBounds();
+        g.fillRect(clipRect.x, clipRect.y, clipRect.width, clipRect.height);
+        g.setColor(Color.black);
     }
 
     private void drawWorld(Graphics g, ImageLibrary library, boolean[] line, Player player) {
@@ -73,5 +83,32 @@ public class LineWorldPainter {
                         (int) (g.getClipBounds().getY() + g.getClipBounds().getHeight() - tileHeight), tileWidth, tileHeight,null);
             }
         }
+    }
+
+    private void drawIcons(Graphics g, ImageLibrary library, Player player) {
+        int delta = (int) (tileWidth * 0.3);
+        int realIconSize = library.getImage("dirt").getWidth(null);
+        int gameIconSize = (int) ((Math.ceil(tileWidth / (double) realIconSize) * realIconSize) * 0.5);
+        int xPos = (int) (g.getClipBounds().getX() + delta);
+        int yPos = (int) (g.getClipBounds().getY() + delta);
+
+        // Set bigger font
+        Font currentFont = g.getFont();
+        Font newFont = currentFont.deriveFont(currentFont.getSize() * 3F);
+        g.setFont(newFont);
+
+        // Draw dirt icon and amount of dirt left
+        g.drawImage(library.getImage("dirt"), xPos, yPos, gameIconSize, gameIconSize, null);
+        g.drawString("x " + player.getAmountOfDirt(), xPos + gameIconSize + 10,
+                yPos + (gameIconSize - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
+
+        // Draw jump icon and jump length
+        yPos = (int) (yPos + gameIconSize * 1.5);
+        g.drawImage(library.getImage("jumpIcon"), xPos,
+                yPos, gameIconSize, gameIconSize, null);
+        g.drawString(String.valueOf(player.getPlayerJumpLength()), xPos + gameIconSize + 10,
+                yPos + (gameIconSize - g.getFontMetrics().getHeight()) / 2 + g.getFontMetrics().getAscent());
+
+        g.setFont(currentFont);
     }
 }

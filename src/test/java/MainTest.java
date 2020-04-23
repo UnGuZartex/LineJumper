@@ -75,10 +75,6 @@ class MainTest {
         assertFalse(gameWorld.evaluatePredicate(hasDirt));
         assertEquals(Result.END, gameWorld.executeAction(moveForward));
 
-        assertFalse(gameWorld.evaluatePredicate(pitInFront));
-        assertFalse(gameWorld.evaluatePredicate(hasDirt));
-        assertEquals(Result.END, gameWorld.executeAction(moveForward));
-
         assertThrows(IllegalStateException.class, () -> gameWorld.executeAction(moveForward));
     }
 

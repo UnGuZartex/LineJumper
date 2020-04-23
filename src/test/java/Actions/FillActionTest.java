@@ -41,13 +41,14 @@ class FillActionTest {
             player.moveForward();
         }
 
-        line = new boolean[nbOfMoveForward + random.nextInt(MAX_NUMBER_EXTRA_POS + 2) + 2];
+        line = new boolean[nbOfMoveForward + random.nextInt(MAX_NUMBER_EXTRA_POS + 2) + 3];
 
         for (int i = 0; i < line.length; i++) {
             line[i] = random.nextBoolean();
         }
         line[nbOfMoveForward] = true;
         line[nbOfMoveForward + 1] = false;
+        line[line.length - 1] = true;
 
         jumper = new LineWorld(line, player);
     }
