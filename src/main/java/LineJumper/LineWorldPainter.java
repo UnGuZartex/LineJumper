@@ -6,9 +6,8 @@ import java.awt.*;
 
 public class LineWorldPainter {
 
-    private static int tilesOnScreen = 5;
     private int tileWidth, tileHeight;
-    private Color backgroundColor = new Color(84, 214, 240);
+    private final Color backgroundColor = new Color(84, 214, 240);
 
     public void paint(Graphics g, ImageLibrary library, boolean[] line, Player player) {
         calculateWorldProperties(g, library);
@@ -22,6 +21,7 @@ public class LineWorldPainter {
         int imageHeight = referenceImage.getHeight(null);
         int imageWidth = referenceImage.getWidth(null);
 
+        int tilesOnScreen = 5;
         double tileSizeMultiplier = Math.min(g.getClipBounds().getWidth() / (double) (imageWidth * tilesOnScreen),
                 g.getClipBounds().getHeight() / (double) (imageHeight * 2));
         tileWidth = (int) (imageWidth * tileSizeMultiplier);

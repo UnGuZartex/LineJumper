@@ -85,6 +85,13 @@ class PlayerTest {
     }
 
     @Test
+    void getPlayerJumpLength() {
+        assertEquals(jumpLengthMove, playerMove.getPlayerJumpLength());
+        assertEquals(jumpLength, player.getPlayerJumpLength());
+        assertEquals(jumpLengthNoDirt, playerNoDirt.getPlayerJumpLength());
+    }
+
+    @Test
     void jump() {
         playerMove.jump();
         assertEquals(nbOfMoveForward + jumpLengthMove, playerMove.getPosition());
