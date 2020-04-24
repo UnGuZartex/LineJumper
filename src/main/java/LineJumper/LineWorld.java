@@ -250,15 +250,21 @@ public class LineWorld implements GameWorld {
         /**
          * Variable referring to the line to remember.
          */
-        private final boolean[] lineMemento = line.clone();
+        private final boolean[] lineMemento;
         /**
          * Variable referring to the player to remember.
          */
-        private final Player playerMemento = player.copy();
+        private final Player playerMemento;
         /**
          * Variable referring to the creation time of this snapshot.
          */
-        private final LocalDateTime creationTime = LocalDateTime.now();
+        private final LocalDateTime creationTime;
+
+        public LineJumperSnapshot() {
+            lineMemento = line.clone();
+            playerMemento = player.copy();
+            creationTime = LocalDateTime.now();
+        }
 
         /**
          * Get the name of this snapshot.
