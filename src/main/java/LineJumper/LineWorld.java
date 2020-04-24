@@ -245,7 +245,7 @@ public class LineWorld implements GameWorld {
     /**
      * A private class for snapshots of a line worlds.
      */
-    private class LineJumperSnapshot implements Snapshot {
+    private final class LineJumperSnapshot implements Snapshot {
 
         /**
          * Variable referring to the line to remember.
