@@ -211,8 +211,8 @@ public class LineWorld implements GameWorld {
         if (!isValidPlayer(lineJumperSnapshot.playerMemento)) {
             throw new IllegalArgumentException("The given snapshot doesn't have a valid player!");
         }
-        this.line = lineJumperSnapshot.lineMemento;
-        this.player = lineJumperSnapshot.playerMemento;
+        this.line = lineJumperSnapshot.lineMemento.clone();
+        this.player = lineJumperSnapshot.playerMemento.copy();
     }
 
     /**
