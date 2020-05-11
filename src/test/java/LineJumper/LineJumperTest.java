@@ -5,7 +5,7 @@ import Actions.MoveForwardAction;
 import GameWorldAPI.GameWorld.Result;
 import GameWorldAPI.GameWorldType.Action;
 import GameWorldAPI.GameWorldType.Predicate;
-import GameWorldAPI.History.Snapshot;
+import GameWorldAPI.Utility.Snapshot;
 import Predicates.HasDirtPredicate;
 import Predicates.PitInFrontPredicate;
 import org.junit.jupiter.api.AfterEach;
